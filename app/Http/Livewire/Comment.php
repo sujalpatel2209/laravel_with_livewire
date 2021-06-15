@@ -25,6 +25,11 @@ class Comment extends Component
         $this->newComment = '';
     }
 
+    public function remove($id)
+    {
+        dd($id);
+    }
+
     public function mount()
     {
         $initialComment = CommentModel::latest()->get();

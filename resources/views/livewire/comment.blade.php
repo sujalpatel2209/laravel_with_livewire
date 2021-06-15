@@ -31,16 +31,13 @@
                         <small class="text-grey-dark text-xs ">{{ $comment->body }}</small><br>
                         <small>{{ $comment->created_at->diffForHumans() }}</small>
                     </div>
-                    <i class="fas fa-times fa-1x ml-auto text-red"></i>
+                    <i class="fas fa-times fa-1x ml-auto text-red" wire:click="remove({{$comment->id}})"></i>
                 </div>
             @empty
                 <div class="flex relative mt-6 text-sm">
                     Comment not found.
                 </div>
             @endforelse
-        </div>
-        <div class="modal__footer mt-6">
-
         </div>
     </div>
 </div>
