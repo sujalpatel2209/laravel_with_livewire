@@ -13,19 +13,29 @@ class Comment extends Component
 
     public function addComment()
     {
-        if(empty($this->newComment)) return;
-
-        array_unshift($this->comments, [
-            'body' => $this->newComment,
-            'user_id' => 1
+        $this->validate([
+            'newComment' => 'required|max:190'
         ]);
+
+        $createdCommnet = CommentModel::create([
+            'user_id' => 1,
+            'body' => $this->newComment,
+        ]);
+        $this->comments->prepend($createdCommnet);
         $this->newComment = '';
     }
 
     public function mount()
     {
-        $initialComment = CommentModel::all();
+        $initialComment = CommentModel::latest()->get();
         $this->comments = $initialComment;
+    }
+
+    public function updated($field)
+    {
+        $this->validateOnly($field, [
+            'newComment' => 'required|max:190'
+        ]);
     }
 
     public function render()
